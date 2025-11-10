@@ -1,2 +1,2 @@
-Ignore local credentials file
+# Ignore local credentials file
 scripts/credentials.js
