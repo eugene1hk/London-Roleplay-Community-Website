@@ -1,1 +1,103 @@
+/* Shared styles */
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  margin: 0;
+  background-color: #f7f9fb;
+  color: #333;
+}
+
+header {
+  background-color: #2b3a67;
+  padding: 10px 0;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: auto;
+}
+
+.nav-item {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+}
+
+.nav-item:hover {
+  background-color: #3c4f8a;
+  border-radius: 4px;
+}
+
+.right {
+  margin-left: auto;
+}
+
+main {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+/* Tables */
+table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  width: 80%;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 12px;
+}
+
+/* Forms */
+form {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  margin: 50px auto;
+  text-align: left;
+  color: #fff;
+  background-color: #3c6e71;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+button {
+  background-color: #1b263b;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 1em;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #415a77;
+}
+
+#loginMessage {
+  margin-top: 10px;
+  text-align: center;
+}
 
