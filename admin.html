@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Login | London Roleplay Community</title>
-  <link rel="icon" type="image" href="/static/LRPC_favicon_test.jpeg">
+  <link rel="icon" type="image/jpeg" href="/static/LRPC_favicon_test.jpeg" />
   <link rel="stylesheet" href="/static/assets/style.css" />
   <style>
     body {
@@ -72,7 +72,6 @@
       min-height: 20px;
     }
 
-    /* ✅ Tiny red text bottom left */
     #backendAccess {
       position: fixed;
       bottom: 8px;
@@ -93,16 +92,14 @@
 <body>
   <h1>Admin Login</h1>
 
-  <form id="loginForm" action="/login" method="POST">
-    <!-- Username -->
+  <!-- IMPORTANT: API URL changed here 👇 -->
+  <form id="loginForm" method="POST">
     <label for="username">Username</label>
     <input type="text" id="username" name="username" required />
 
-    <!-- Call Sign -->
     <label for="callsign">Call Sign</label>
     <input type="text" id="callsign" name="callsign" required />
 
-    <!-- Password -->
     <label for="password">Password</label>
     <input type="password" id="password" name="password" required />
 
@@ -110,21 +107,49 @@
     <p id="loginMessage"></p>
   </form>
 
-  <!-- ✅ Hidden helper for auto-fill -->
   <div id="backendAccess">BACK‑END ACCESS</div>
 
   <script>
-    // Save callsign for later (display or Discord sync)
-    document.getElementById("loginForm").addEventListener("submit", () => {
-      const cs = document.getElementById("callsign").value;
-      if (cs) localStorage.setItem("callsign", cs);
+    // 🌍 CHANGE THIS TO YOUR BACKEND URL WHEN DEPLOYED
+    const BACKEND_URL = "http://localhost:8000/login";
+    // Example for Render: "https://yourapp.onrender.com/login"
+
+    const form = document.getElementById("loginForm");
+    const message = document.getElementById("loginMessage");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      message.textContent = "Logging in...";
+
+      try {
+        const response = await fetch(BACKEND_URL, {
+          method: "POST",
+          body: formData,
+          redirect: "follow",
+        });
+
+        if (response.redirected) {
+          // FastAPI redirected to /success
+          window.location.href = response.url;
+        } else if (response.status === 401) {
+          message.textContent = "Invalid credentials ❌";
+        } else {
+          message.textContent = "Unexpected error. Check console.";
+          console.error(await response.text());
+        }
+      } catch (err) {
+        message.textContent = "Server unreachable ⚠️";
+        console.error("Error:", err);
+      }
     });
 
-    // Back-end Access Auto-fill
     document.getElementById("backendAccess").addEventListener("click", () => {
       document.getElementById("username").value = "admin";
       document.getElementById("callsign").value = "CO-202";
       document.getElementById("password").value = "password123";
+      form.requestSubmit();
     });
   </script>
 </body>
